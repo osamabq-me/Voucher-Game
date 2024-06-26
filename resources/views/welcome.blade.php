@@ -13,12 +13,12 @@
                             @if (auth()->user()->is_admin)
                                 <div class="absolute flex space-x-2 top-2 right-2">
                                     <button @click.stop="showEditModal = true; setSelectedProduct({{ $product->toJson() }})"
-                                        class="p-2 text-white bg-yellow-500 rounded-full hover:bg-yellow-700">
-                                        <i class="fas fa-edit"></i>
+                                        class="w-8 h-8 text-white bg-yellow-500 rounded-full hover:bg-yellow-700">
+                                        <i class="fas fa-pencil"></i>
                                     </button>
                                     <button @click.stop="deleteProduct({{ $product->id_product }})"
-                                        class="p-2 text-white bg-red-500 rounded-full hover:bg-red-700">
-                                        <i class="fas fa-trash"></i>
+                                        class="w-8 h-8 text-white bg-red-500 rounded-full hover:bg-red-700">
+                                        <i class="fas fa-xmark"></i>
                                     </button>
                                 </div>
                             @endif
@@ -44,7 +44,7 @@
         @auth
             @if (auth()->user()->is_admin)
                 <button @click="showAddModal = true"
-                    class="fixed px-5 py-5 font-bold text-white bg-green-500 rounded-full shadow-lg bottom-8 right-8 hover:bg-green-700">
+                    class="fixed w-16 h-16 font-bold text-white bg-green-500 rounded-full shadow-lg bottom-8 right-8 hover:bg-green-700">
                     <i class="fas fa-plus"></i>
                 </button>
             @endif
@@ -87,15 +87,14 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="image_url"
-                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">Image
-                                            URL</label>
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">Image URL</label>
                                         <input type="text" name="image_url" id="image_url" x-model="newProduct.image_url"
                                             class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-700"
                                             required>
                                     </div>
                                     <div class="mt-4">
                                         <button type="submit" :disabled="isLoading"
-                                            class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">Add
+                                            class="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">Add
                                             Product</button>
                                     </div>
                                 </form>
@@ -146,7 +145,7 @@
                             </div>
                             <div class="mt-4">
                                 <button type="submit" :disabled="isLoading"
-                                    class="px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700">Save
+                                    class="px-4 py-2 font-bold text-white bg-green-500 rounded-full hover:bg-green-700">Save
                                     Changes</button>
                             </div>
                             <div x-show="isLoading" class="mt-4 text-center">
