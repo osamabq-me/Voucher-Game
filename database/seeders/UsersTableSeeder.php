@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
             'username' => 'M Ayash',
             'email' => 'm.ayashal.f@gmail.com',
             'password' => bcrypt('password'), // Use bcrypt() for password hashing
-            'is_admin' => true,
+            'is_admin' => false,
         ]);
 
         User::factory()->count(100)->create();

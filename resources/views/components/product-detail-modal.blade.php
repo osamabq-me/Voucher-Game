@@ -18,7 +18,7 @@
                     <label for="custom_amount" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Custom
                         Amount
                         (CP)</label>
-                    <input type="number" id="custom_amount" x-model="customAmount"
+                    <input type="number" id="custom_amount" x-model.number="customAmount" @input="updateTotalPrice"
                         class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-700">
                 </div>
 
@@ -36,7 +36,7 @@
                         Method</label>
                     <select id="payment_method" x-model="paymentMethod"
                         class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-700">
-                        <option value="GOPAY">E-Wallet</option>
+                        <option value="GOPAY">GOPAY</option>
                         <option value="QRIS">QRIS</option>
                         <option value="Transfer BCA">Transfer BCA</option>
                         <option value="Alfamart">Alfamart</option>
