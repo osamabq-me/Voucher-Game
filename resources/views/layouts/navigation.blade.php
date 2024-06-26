@@ -16,20 +16,20 @@
                     <x-nav-link :href="url('/')" :active="request()->is('/')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    {{-- @auth
+                    @auth
                         @if (auth()->user()->is_admin)
                             <x-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
                                 {{ __('Admin History') }}
                             </x-nav-link>
                         @else
-                            <x-nav-link :href="route('history')" :active="request()->routeIs('history')">
+                            {{-- <x-nav-link :href="route('history')" :active="request()->routeIs('history')">
                                 {{ __('History') }}
-                            </x-nav-link>
+                            </x-nav-link> --}}
                             <x-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.index')">
                                 {{ __('Favorites') }}
                             </x-nav-link>
                         @endif
-                    @endauth --}}
+                    @endauth
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
                                     <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
@@ -119,20 +119,20 @@
             <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                 {{ __('Profile') }}
             </x-responsive-nav-link>
-            {{-- @auth
-            @if (auth()->user()->is_admin)
-                <x-responsive-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
-                    {{ __('Admin History') }}
-                </x-responsive-nav-link>
-            @else
-                <x-responsive-nav-link :href="route('history')" :active="request()->routeIs('history')">
-                    {{ __('History') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.index')">
-                    {{ __('Favorites') }}
-                </x-responsive-nav-link>
-            @endif
-        @endauth --}}
+            @auth
+                @if (auth()->user()->is_admin)
+                    <x-responsive-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
+                        {{ __('Admin History') }}
+                    </x-responsive-nav-link>
+                @else
+                    {{-- <x-responsive-nav-link :href="route('history')" :active="request()->routeIs('history')">
+                        {{ __('History') }}
+                    </x-responsive-nav-link> --}}
+                    <x-responsive-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.index')">
+                        {{ __('Favorites') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->

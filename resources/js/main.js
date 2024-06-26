@@ -94,3 +94,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('orderForm').addEventListener('submit', processOrder);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    function toggleFavorite(productId, button) {
+        fetch('/favorites/toggle', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ id_product: productId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'removed') {
+                button.querySelector('i').classList.remove('fas');
+                button.querySelector('i').classList.add('far');
+                button.style.color = 'gray';
+                // Remove the product card if on the favorites page
+                const productCard = button.closest('.product-card');
+                if (productCard && productCard.classList.contains('favorite-card')) {
+                    productCard.remove();
+                }
+            } else {
+                button.querySelector('i').classList.remove('far');
+                button.querySelector('i').classList.add('fas');
+                button.style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    document.querySelectorAll('.favorite-button').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
+            const productId = button.getAttribute('data-product-id');
+            toggleFavorite(productId, button);
+        });
+    });
+});

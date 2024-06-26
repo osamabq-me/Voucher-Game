@@ -5,15 +5,18 @@
         <div class="mt-8 overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-lg">
             <div id="product-list" class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($products as $product)
-                    <div class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105"
-                        onclick="openModal({{ $product->toJson() }})">
+                    <div
+                        class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105">
                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="object-cover w-full">
                         <div class="p-4">
                             <h2 class="flex items-center justify-between text-2xl font-bold text-gray-900 dark:text-white">
                                 {{ $product->name }}
-                                <button class="ml-2 text-red-500">
-                                    <i class="far fa-heart"></i>
-                                </button>
+                                @auth
+                                    <button class="ml-2 text-red-500 favorite-button"
+                                        data-product-id="{{ $product->id_product }}">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                @endauth
                             </h2>
                             <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $product->description }}</p>
                             <p class="mt-2 font-bold text-gray-900 dark:text-white">Rp
@@ -141,4 +144,8 @@
             </div>
         </template>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ mix('js/main.js') }}"></script>
 @endsection
