@@ -21,8 +21,8 @@ class UsersTableSeeder extends Seeder
         ]);
 
         User::create([
-            'username' => 'OSAMAH ALMEKHLAFI',
-            'email' => 'OSAMAH@email.com',
+            'username' => 'M Ayash',
+            'email' => 'm.ayashal.f@gmail.com',
             'password' => bcrypt('password'), // Use bcrypt() for password hashing
             'is_admin' => true,
         ]);
