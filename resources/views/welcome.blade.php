@@ -5,9 +5,10 @@
         <div class="mt-8 overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-lg">
             <div id="product-list" class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($products as $product)
-                    <div class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105"
-                        @click="showDetailModal = true; selectedProduct = {{ $product->toJson() }}">
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="object-cover w-full">
+                    <div
+                        class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105">
+                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="object-cover w-full"
+                            @click="showDetailModal = true; selectedProduct = {{ $product->toJson() }}">
                         @auth
                             @if (auth()->user()->is_admin)
                                 <div class="absolute flex space-x-2 top-2 right-2">
@@ -233,3 +234,67 @@
         </template>
     </div>
 @endsection
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('productManagement', () => ({
+            showDetailModal: false,
+            showAddModal: false,
+            showEditModal: false,
+            selectedProduct: null,
+            customAmount: 0,
+            userId: '',
+            paymentMethod: 'GOPAY',
+            whatsappNumber: '',
+            totalPrice: 0,
+            newProduct: {
+                name: '',
+                description: '',
+                price: '',
+                image_url: ''
+            },
+            isLoading: false,
+
+            formatPrice(price) {
+                return (price / 1000).toLocaleString('id-ID', {
+                    minimumFractionDigits: 3
+                });
+            },
+            toggleFavorite(productId) {
+                // Implement favorite functionality here
+            },
+            isFavorite(productId) {
+                // Implement check if product is favorite here
+            },
+            deleteProduct(productId) {
+                // Implement delete functionality here
+            },
+            addProduct() {
+                this.isLoading = true;
+                // Implement add product functionality here
+                // After successful add, close modal and reset form
+                this.showAddModal = false;
+                this.newProduct = {
+                    name: '',
+                    description: '',
+                    price: '',
+                    image_url: ''
+                };
+                this.isLoading = false;
+            },
+            editProduct() {
+                this.isLoading = true;
+                // Implement edit product functionality here
+                // After successful edit, close modal
+                this.showEditModal = false;
+                this.isLoading = false;
+            },
+            processOrder() {
+                // Implement order processing functionality here
+            },
+            redirectToLogin() {
+                window.location.href = '{{ route('login') }}';
+            }
+        }));
+    });
+</script>
