@@ -5,30 +5,14 @@
         <div class="mt-8 overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-lg">
             <div id="product-list" class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($products as $product)
-                    <div
-                        class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105">
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="object-cover w-full"
-                            @click="showDetailModal = true; setSelectedProduct({{ $product->toJson() }})">
-                        @auth
-                            @if (auth()->user()->is_admin)
-                                <div class="absolute flex space-x-2 top-2 right-2">
-                                    <button @click.stop="showEditModal = true; setSelectedProduct({{ $product->toJson() }})"
-                                        class="w-8 h-8 text-white bg-yellow-500 rounded-full hover:bg-yellow-700">
-                                        <i class="fas fa-pencil"></i>
-                                    </button>
-                                    <button @click.stop="deleteProduct({{ $product->id_product }})"
-                                        class="w-8 h-8 text-white bg-red-500 rounded-full hover:bg-red-700">
-                                        <i class="fas fa-xmark"></i>
-                                    </button>
-                                </div>
-                            @endif
-                        @endauth
+                    <div class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105"
+                        onclick="openModal({{ $product->toJson() }})">
+                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="object-cover w-full">
                         <div class="p-4">
                             <h2 class="flex items-center justify-between text-2xl font-bold text-gray-900 dark:text-white">
                                 {{ $product->name }}
-                                <button @click.stop="toggleFavorite({{ $product->id_product }})" class="ml-2 text-red-500">
-                                    <i
-                                        :class="isFavorite({{ $product->id_product }}) ? 'fas fa-heart' : 'far fa-heart'"></i>
+                                <button class="ml-2 text-red-500">
+                                    <i class="far fa-heart"></i>
                                 </button>
                             </h2>
                             <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $product->description }}</p>
