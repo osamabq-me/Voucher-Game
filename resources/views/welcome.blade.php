@@ -7,14 +7,15 @@
                         onclick="openModal({{ $product->toJson() }})">
                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="object-cover w-full">
                         <div class="p-4">
-                            <h2
-                                class="flex items-center justify-between text-2xl font-bold text-gray-900 dark:text-white">
+                            <h2 class="flex items-center justify-between text-2xl font-bold text-gray-900 dark:text-white">
                                 {{ $product->name }}
-                                <button class="ml-2 favorite-button"
-                                    data-product-id="{{ $product->id_product }}"
-                                    style="color: {{ in_array($product->id_product, $favorites) ? 'red' : 'gray' }}">
-                                    <i class="{{ in_array($product->id_product, $favorites) ? 'fas' : 'far' }} fa-heart"></i>
-                                </button>
+                                @auth
+                                    <button class="ml-2 favorite-button"
+                                        data-product-id="{{ $product->id_product }}"
+                                        style="color: {{ in_array($product->id_product, $favorites) ? 'red' : 'gray' }}">
+                                        <i class="{{ in_array($product->id_product, $favorites) ? 'fas' : 'far' }} fa-heart"></i>
+                                    </button>
+                                @endauth
                             </h2>
                             <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $product->description }}</p>
                             <p class="mt-2 font-bold text-gray-900 dark:text-white">Rp
