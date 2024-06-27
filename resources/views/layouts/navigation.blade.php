@@ -18,17 +18,17 @@
                     </x-nav-link>
                     @auth
                         @if (auth()->user()->is_admin)
-                            <x-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
+                            {{-- <x-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
                                 {{ __('Admin History') }}
-                            </x-nav-link>
+                            </x-nav-link> --}}
                         @else
                             {{-- <x-nav-link :href="route('history')" :active="request()->routeIs('history')">
                                 {{ __('History') }}
                             </x-nav-link> --}}
-                            <x-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.index')">
-                                {{ __('Favorites') }}
-                            </x-nav-link>
                         @endif
+                        <x-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.index')">
+                            {{ __('Favorites') }}
+                        </x-nav-link>
                     @endauth
                 </div>
             </div>
@@ -121,17 +121,13 @@
             </x-responsive-nav-link>
             @auth
                 @if (auth()->user()->is_admin)
-                    <x-responsive-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
+                    {{-- <x-responsive-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
                         {{ __('Admin History') }}
-                    </x-responsive-nav-link>
-                @else
-                    {{-- <x-responsive-nav-link :href="route('history')" :active="request()->routeIs('history')">
-                        {{ __('History') }}
                     </x-responsive-nav-link> --}}
-                    <x-responsive-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.index')">
-                        {{ __('Favorites') }}
-                    </x-responsive-nav-link>
                 @endif
+                <x-responsive-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.index')">
+                    {{ __('Favorites') }}
+                </x-responsive-nav-link>
             @endauth
         </div>
 
