@@ -6,7 +6,7 @@
                 <div class="grid grid-cols-1 gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
                     @foreach ($favorites as $favorite)
                         <div id="favorite-{{ $favorite->product->id_product }}"
-                            class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105">
+                            class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer favorite-card dark:bg-gray-800 hover:scale-105">
                             <img src="{{ $favorite->product->image_url }}" alt="{{ $favorite->product->name }}"
                                 class="object-cover w-full">
                             <div class="p-4">

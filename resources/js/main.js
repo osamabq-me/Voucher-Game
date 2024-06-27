@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.querySelector('i').classList.add('far');
                 button.style.color = 'gray';
                 // Remove the product card if on the favorites page
-                const productCard = button.closest('.product-card');
-                if (productCard && productCard.classList.contains('favorite-card')) {
+                const productCard = document.getElementById(`favorite-${productId}`);
+                if (productCard) {
                     productCard.remove();
                 }
             } else {
