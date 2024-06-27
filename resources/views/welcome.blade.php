@@ -3,20 +3,18 @@
         <div class="mt-8 overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-lg">
             <div id="product-list" class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($products as $product)
-                    <div id="product-{{ $product->id_product }}"
-                        class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105"
+                    <div class="relative overflow-hidden transition-transform transform bg-white rounded-lg shadow-lg cursor-pointer dark:bg-gray-800 hover:scale-105"
                         onclick="openModal({{ $product->toJson() }})">
                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="object-cover w-full">
                         <div class="p-4">
                             <h2
                                 class="flex items-center justify-between text-2xl font-bold text-gray-900 dark:text-white">
                                 {{ $product->name }}
-                                @auth
-                                    <button class="ml-2 text-red-500 favorite-button"
-                                        data-product-id="{{ $product->id_product }}">
-                                        <i class="far fa-heart"></i>
-                                    </button>
-                                @endauth
+                                <button class="ml-2 favorite-button"
+                                    data-product-id="{{ $product->id_product }}"
+                                    style="color: {{ in_array($product->id_product, $favorites) ? 'red' : 'gray' }}">
+                                    <i class="{{ in_array($product->id_product, $favorites) ? 'fas' : 'far' }} fa-heart"></i>
+                                </button>
                             </h2>
                             <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $product->description }}</p>
                             <p class="mt-2 font-bold text-gray-900 dark:text-white">Rp
@@ -74,8 +72,7 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="image_url"
-                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">Image
-                                            URL</label>
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">Image URL</label>
                                         <input type="text" name="image_url" id="image_url" x-model="newProduct.image_url"
                                             class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-700"
                                             required>
