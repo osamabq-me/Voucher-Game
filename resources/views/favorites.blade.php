@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
         <div class="mt-8 overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-lg">
             <div class="p-6">
@@ -31,7 +29,7 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
 
 @section('scripts')
     <script src="{{ mix('js/main.js') }}"></script>

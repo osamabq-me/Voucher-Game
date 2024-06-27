@@ -26,7 +26,7 @@
     @include('layouts.navigation')
 
     <main class="py-8">
-        @yield('content')
+        {{ $slot }}
     </main>
     @vite('resources/js/app.js')
 </body>
