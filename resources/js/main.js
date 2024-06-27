@@ -24,6 +24,29 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('detailModal').classList.add('hidden');
     }
 
+    function openAddModal() {
+        document.getElementById('addModal').classList.remove('hidden');
+    }
+
+    function closeAddModal() {
+        document.getElementById('addModal').classList.add('hidden');
+    }
+
+    function openEditModal(product) {
+        selectedProduct = product;
+        document.getElementById('editProductId').value = product.id_product;
+        document.getElementById('editName').value = product.name;
+        document.getElementById('editDescription').value = product.description;
+        document.getElementById('editPrice').value = product.price;
+        document.getElementById('editImageUrl').value = product.image_url;
+
+        document.getElementById('editModal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+        document.getElementById('editModal').classList.add('hidden');
+    }
+
     document.getElementById('customAmount').addEventListener('input', function () {
         customAmount = this.value;
         updateTotalPrice();
@@ -90,12 +113,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.openModal = openModal;
     window.closeModal = closeModal;
+    window.openAddModal = openAddModal;
+    window.closeAddModal = closeAddModal;
+    window.openEditModal = openEditModal;
+    window.closeEditModal = closeEditModal;
     window.processOrder = processOrder;
 
     document.getElementById('orderForm').addEventListener('submit', processOrder);
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     function openModal(product) {
         populateModal(product);
         document.getElementById('product-detail-modal').classList.add('is-active');
@@ -110,38 +137,38 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify({ id_product: productId })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'removed') {
-                button.querySelector('i').classList.remove('fas');
-                button.querySelector('i').classList.add('far');
-                button.style.color = 'gray';
-                // Remove the product card if on the favorites page
-                const productCard = document.getElementById(`favorite-${productId}`);
-                if (productCard) {
-                    productCard.remove();
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'removed') {
+                    button.querySelector('i').classList.remove('fas');
+                    button.querySelector('i').classList.add('far');
+                    button.style.color = 'gray';
+                    // Remove the product card if on the favorites page
+                    const productCard = document.getElementById(`favorite-${productId}`);
+                    if (productCard) {
+                        productCard.remove();
+                    }
+                } else {
+                    button.querySelector('i').classList.remove('far');
+                    button.querySelector('i').classList.add('fas');
+                    button.style.color = 'red';
                 }
-            } else {
-                button.querySelector('i').classList.remove('far');
-                button.querySelector('i').classList.add('fas');
-                button.style.color = 'red';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 
-    document.querySelectorAll('.favorite-button').forEach(function(button) {
-        button.addEventListener('click', function(event) {
+    document.querySelectorAll('.favorite-button').forEach(function (button) {
+        button.addEventListener('click', function (event) {
             event.stopPropagation();
             const productId = button.getAttribute('data-product-id');
             toggleFavorite(productId, button);
         });
     });
 
-    document.querySelectorAll('.favorite-card').forEach(function(card) {
-        card.addEventListener('click', function() {
+    document.querySelectorAll('.favorite-card').forEach(function (card) {
+        card.addEventListener('click', function () {
             const product = JSON.parse(card.getAttribute('data-product'));
             openModal(product);
         });

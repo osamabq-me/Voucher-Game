@@ -9,7 +9,8 @@
                         <img src="{{ $favorite->product->image_url }}" alt="{{ $favorite->product->name }}"
                             class="object-cover w-full">
                         <div class="p-4">
-                            <h2 class="flex items-center justify-between text-2xl font-bold text-gray-900 dark:text-white">
+                            <h2
+                                class="flex items-center justify-between text-2xl font-bold text-gray-900 dark:text-white">
                                 {{ $favorite->product->name }}
                                 @auth
                                     <button class="ml-2 text-red-500 favorite-button"
