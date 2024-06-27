@@ -96,6 +96,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    function openModal(product) {
+        populateModal(product);
+        document.getElementById('product-detail-modal').classList.add('is-active');
+    }
+
     function toggleFavorite(productId, button) {
         fetch('/favorites/toggle', {
             method: 'POST',
@@ -132,6 +137,13 @@ document.addEventListener('DOMContentLoaded', function() {
             event.stopPropagation();
             const productId = button.getAttribute('data-product-id');
             toggleFavorite(productId, button);
+        });
+    });
+
+    document.querySelectorAll('.favorite-card').forEach(function(card) {
+        card.addEventListener('click', function() {
+            const product = JSON.parse(card.getAttribute('data-product'));
+            openModal(product);
         });
     });
 });
