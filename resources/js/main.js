@@ -48,7 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     document.getElementById('customAmount').addEventListener('input', function () {
-        customAmount = this.value;
+        customAmount = parseInt(this.value, 10);
+        if (isNaN(customAmount) || customAmount < 0) {
+            customAmount = 0;
+            this.value = customAmount;
+        }
         updateTotalPrice();
     });
 
@@ -71,44 +75,40 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // Check if the custom amount is at least one and not negative
+        if (customAmount < 1) {
+            alert('The amount must be at least one and not negative.');
+            return;
+        }
+
         const payload = {
             id_product: selectedProduct.id_product,
             custom_amount: customAmount,
             user_id: document.getElementById('userId').value,
             payment_method: document.getElementById('paymentMethod').value,
-            whatsapp_number: document.getElementById('whatsappNumber').value,
+            whatsapp: document.getElementById('whatsappNumber').value,
             total_price: selectedProduct.price * customAmount
         };
         console.log('Order Payload:', payload);
 
-        fetch('/order', {
+        $.ajax({
+            url: '/order',
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            body: JSON.stringify(payload)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(err => {
-                        throw err
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
+            contentType: 'application/json',
+            data: JSON.stringify(payload),
+            success: function (response) {
+                console.log('Response:', response);
                 closeModal();
-                if (data.success) {
-                    alert('Order placed successfully!');
-                } else {
-                    alert('Failed to place order!');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
+                alert('Order placed successfully!');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', jqXHR.responseText);
                 alert('An error occurred. Please try again.');
-            });
+            }
+        });
     }
 
     window.openModal = openModal;

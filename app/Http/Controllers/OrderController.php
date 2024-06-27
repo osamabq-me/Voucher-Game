@@ -14,7 +14,8 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the request
+        $validated = $request->validate([
             'id_product' => 'required|exists:products,id_product',
             'custom_amount' => 'required|numeric|min:1',
             'user_id' => 'required|string',
@@ -25,12 +26,15 @@ class OrderController extends Controller
         try {
             $timestamp = now()->startOfSecond();
 
+            // Find the product
+            $product = Product::find($request->id_product);
+
             // Create payment record
             $payment = Payment::create([
                 'id_user' => Auth::id(),
                 'id_product' => $request->id_product,
                 'method' => $request->payment_method,
-                'total' => $request->custom_amount * Product::find($request->id_product)->price,
+                'total' => $request->custom_amount * $product->price,
                 'whatsapp' => $request->whatsapp,
                 'created_at' => $timestamp,
                 'updated_at' => $timestamp,
@@ -54,9 +58,10 @@ class OrderController extends Controller
                 ]);
             }
 
-            return response()->json(['message' => 'Order processed successfully.'], 200);
+            return response()->json(['success' => true, 'message' => 'Order processed successfully.'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to process order.'], 500);
+            Log::error('Failed to process order: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Failed to process order.'], 500);
         }
     }
 }
