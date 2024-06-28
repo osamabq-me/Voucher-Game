@@ -92,7 +92,6 @@
                         </x-slot>
                     </x-dropdown>
                 @endguest
-
                 <!-- Theme Toggle Button (Desktop) -->
                 <button id="theme-toggle-desktop" onclick="toggleTheme()"
                     class="text-gray-500 dark:text-gray-400 focus:outline-none">
@@ -127,9 +126,9 @@
             <x-responsive-nav-link :href="url('/')" :active="request()->is('/')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-nav-link :href="url('/product')" :active="request()->is('/product')">
+            <x-responsive-nav-link :href="url('/product')" :active="request()->is('/product')">
                 {{ __('Product') }}
-            </x-nav-link>
+            </x-responsive-nav-link>
             @auth
                 @if (auth()->user()->is_admin)
                     <x-responsive-nav-link :href="route('history.adminhistory')" :active="request()->routeIs('history.adminhistory')">

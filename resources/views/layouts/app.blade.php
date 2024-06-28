@@ -60,7 +60,7 @@
         @endif
     </div>
 
-    <main class="py-8">
+    <main>
         {{ $slot }}
     </main>
     @vite('resources/js/app.js')
