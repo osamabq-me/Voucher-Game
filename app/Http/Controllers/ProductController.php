@@ -18,7 +18,7 @@ class ProductController extends Controller
             $favorites = Favorite::where('id_user', Auth::id())->pluck('id_product')->toArray();
         }
 
-        return view('welcome', compact('products', 'favorites'));
+        return view('product', compact('products', 'favorites'));
     }
 
     public function store(Request $request)

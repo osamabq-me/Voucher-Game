@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
@@ -11,7 +12,8 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\SetPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-Route::get('/', [ProductController::class, 'index'])->name('welcome');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/product', [ProductController::class, 'index'])->name('product');
 Route::post('/order', [OrderController::class, 'store'])->middleware('auth');
 
 Route::get('auth/github', [SocialiteController::class, 'redirectToProvider'])->name('auth.github');

@@ -16,6 +16,9 @@
                     <x-nav-link :href="url('/')" :active="request()->is('/')">
                         {{ __('Home') }}
                     </x-nav-link>
+                    <x-nav-link :href="url('product')" :active="request()->routeIs('product')">
+                        {{ __('Product') }}
+                    </x-nav-link>
                     @auth
                         @if (auth()->user()->is_admin)
                             <x-nav-link :href="route('history.adminhistory')" :active="request()->routeIs('history.adminhistory')">
@@ -124,6 +127,9 @@
             <x-responsive-nav-link :href="url('/')" :active="request()->is('/')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
+            <x-nav-link :href="url('/product')" :active="request()->is('/product')">
+                {{ __('Product') }}
+            </x-nav-link>
             @auth
                 @if (auth()->user()->is_admin)
                     <x-responsive-nav-link :href="route('history.adminhistory')" :active="request()->routeIs('history.adminhistory')">
