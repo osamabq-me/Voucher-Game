@@ -14,11 +14,21 @@ class AddGithubFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('github_id')->nullable()->unique();
-            $table->string('github_name')->nullable();
-            $table->string('github_username')->nullable();
-            $table->string('github_token')->nullable();
-            $table->string('github_refresh_token')->nullable();
+            if (!Schema::hasColumn('users', 'github_id')) {
+                $table->string('github_id')->nullable()->unique();
+            }
+            if (!Schema::hasColumn('users', 'github_name')) {
+                $table->string('github_name')->nullable();
+            }
+            if (!Schema::hasColumn('users', 'github_username')) {
+                $table->string('github_username')->nullable();
+            }
+            if (!Schema::hasColumn('users', 'github_token')) {
+                $table->string('github_token')->nullable();
+            }
+            if (!Schema::hasColumn('users', 'github_refresh_token')) {
+                $table->string('github_refresh_token')->nullable();
+            }
         });
     }
 
@@ -30,11 +40,21 @@ class AddGithubFieldsToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('github_id');
-            $table->dropColumn('github_name');
-            $table->dropColumn('github_username');
-            $table->dropColumn('github_token');
-            $table->dropColumn('github_refresh_token');
+            if (Schema::hasColumn('users', 'github_id')) {
+                $table->dropColumn('github_id');
+            }
+            if (Schema::hasColumn('users', 'github_name')) {
+                $table->dropColumn('github_name');
+            }
+            if (Schema::hasColumn('users', 'github_username')) {
+                $table->dropColumn('github_username');
+            }
+            if (Schema::hasColumn('users', 'github_token')) {
+                $table->dropColumn('github_token');
+            }
+            if (Schema::hasColumn('users', 'github_refresh_token')) {
+                $table->dropColumn('github_refresh_token');
+            }
         });
     }
 }

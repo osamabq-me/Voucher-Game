@@ -21,6 +21,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'github_token', 'github_refresh_token',
     ];
 
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
+    ];
+
     protected $hidden = [
         'password', 'remember_token',
     ];
