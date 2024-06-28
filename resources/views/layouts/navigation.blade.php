@@ -41,7 +41,6 @@
                             <button
                                 class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
                                 <div>{{ Auth::user()->username }}</div>
-
                                 <div class="ml-1">
                                     <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20">
@@ -61,10 +60,8 @@
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-
                                 <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -92,10 +89,21 @@
                         </x-slot>
                     </x-dropdown>
                 @endguest
+
+                <!-- Theme Toggle Button (Desktop) -->
+                <button id="theme-toggle-desktop" onclick="toggleTheme()"
+                    class="text-gray-500 dark:text-gray-400 focus:outline-none">
+                    <i id="theme-icon-desktop" class="fas fa-sun"></i>
+                </button>
             </div>
 
             <!-- Hamburger -->
             <div class="flex items-center -mr-2 sm:hidden">
+                <!-- Theme Toggle Button (Responsive) -->
+                <button id="theme-toggle-mobile" onclick="toggleTheme()"
+                    class="mx-4 text-gray-500 dark:text-gray-400 focus:outline-none">
+                    <i id="theme-icon-mobile" class="fas fa-sun"></i>
+                </button>
                 <button @click="open = ! open"
                     class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
                     <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -148,10 +156,8 @@
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
                         <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                            this.closest('form').submit();">
+                            onclick="event.preventDefault(); this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>

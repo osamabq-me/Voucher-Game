@@ -2,6 +2,40 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedProduct = null;
     let customAmount = 0;
 
+    const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+    const themeIconDesktop = document.getElementById('theme-icon-desktop');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            themeIconDesktop.classList.remove('fa-sun');
+            themeIconDesktop.classList.add('fa-moon');
+            themeIconMobile.classList.remove('fa-sun');
+            themeIconMobile.classList.add('fa-moon');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIconDesktop.classList.remove('fa-moon');
+            themeIconDesktop.classList.add('fa-sun');
+            themeIconMobile.classList.remove('fa-moon');
+            themeIconMobile.classList.add('fa-sun');
+        }
+    }
+
+    function toggleTheme() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        const theme = isDark ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+        applyTheme(theme);
+    }
+
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(storedTheme);
+
+    themeToggleDesktop.addEventListener('click', toggleTheme);
+    themeToggleMobile.addEventListener('click', toggleTheme);
+
     function openModal(product) {
         selectedProduct = product;
         document.getElementById('productImage').src = product.image_url;

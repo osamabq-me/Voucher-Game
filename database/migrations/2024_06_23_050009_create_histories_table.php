@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id('id_history');
             $table->foreignId('id_pembayaran')->constrained('payments', 'id_pembayaran')->onDelete('cascade');
-            $table->foreignId('id_user')->constrained('users', 'id_user');
+            $table->foreignId('id_user')->constrained('users', 'id_user')->onDelete('cascade');
             $table->foreignId('id_product')->constrained('products', 'id_product')->onDelete('cascade');
             $table->integer('amount');
             $table->timestamps();
