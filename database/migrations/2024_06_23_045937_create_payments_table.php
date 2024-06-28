@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id('id_pembayaran');
             $table->foreignId('id_user')->constrained('users', 'id_user');
-            $table->foreignId('id_product')->constrained('products', 'id_product');
+            $table->foreignId('id_product')->constrained('products', 'id_product')->onDelete('cascade');
             $table->string('method');
             $table->decimal('total', 10, 3);
             $table->string('whatsapp');

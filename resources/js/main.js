@@ -12,8 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         document.getElementById('productId').value = product.id_product;
         document.getElementById('customAmount').value = customAmount;
-        document.getElementById('totalPrice').innerText = (product.price * customAmount / 1000).toLocaleString(
-            'id-ID', {
+        document.getElementById('totalPrice').innerText = (product.price * customAmount / 1000).toLocaleString('id-ID', {
             minimumFractionDigits: 3
         });
 
@@ -111,6 +110,94 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function addProduct() {
+        const name = document.getElementById('name').value;
+        const description = document.getElementById('description').value;
+        const price = document.getElementById('price').value;
+        const image_url = document.getElementById('image_url').value;
+
+        const payload = {
+            name: name,
+            description: description,
+            price: price,
+            image_url: image_url
+        };
+
+        $.ajax({
+            url: '/products',
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: 'application/json',
+            data: JSON.stringify(payload),
+            success: function (response) {
+                console.log('Response:', response);
+                closeAddModal();
+                alert('Product added successfully!');
+                window.location.reload();  // Refresh the page
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', jqXHR.responseText);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+
+    function editProduct() {
+        const id = document.getElementById('editProductId').value;
+        const name = document.getElementById('editName').value;
+        const description = document.getElementById('editDescription').value;
+        const price = document.getElementById('editPrice').value;
+        const image_url = document.getElementById('editImageUrl').value;
+
+        const payload = {
+            name: name,
+            description: description,
+            price: price,
+            image_url: image_url
+        };
+
+        $.ajax({
+            url: `/products/${id}`,
+            method: 'PUT',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: 'application/json',
+            data: JSON.stringify(payload),
+            success: function (response) {
+                console.log('Response:', response);
+                closeEditModal();
+                alert('Product edited successfully!');
+                window.location.reload();  // Refresh the page
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', jqXHR.responseText);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+
+    function deleteProduct(id) {
+        $.ajax({
+            url: `/products/${id}`,
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                console.log('Response:', response);
+                alert('Product deleted successfully!');
+                window.location.reload();  // Refresh the page
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', jqXHR.responseText);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+
     window.openModal = openModal;
     window.closeModal = closeModal;
     window.openAddModal = openAddModal;
@@ -118,15 +205,18 @@ document.addEventListener('DOMContentLoaded', function () {
     window.openEditModal = openEditModal;
     window.closeEditModal = closeEditModal;
     window.processOrder = processOrder;
+    window.addProduct = addProduct;
+    window.editProduct = editProduct;
+    window.deleteProduct = deleteProduct;
 
     document.getElementById('orderForm').addEventListener('submit', processOrder);
 
-    setTimeout(function() {
+    setTimeout(function () {
         let flashMessages = document.querySelectorAll('.flash-message');
-        flashMessages.forEach(function(flashMessage) {
+        flashMessages.forEach(function (flashMessage) {
             flashMessage.style.transition = 'opacity 1s';
             flashMessage.style.opacity = '0';
-            setTimeout(function() {
+            setTimeout(function () {
                 flashMessage.style.display = 'none';
             }, 1000);
         });
