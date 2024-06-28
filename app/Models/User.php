@@ -16,7 +16,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $primaryKey = 'id_user';
 
     protected $fillable = [
-        'username', 'email', 'password', 'is_admin'
+        'username', 'email', 'password', 'is_admin',
+        'github_id', 'github_name', 'github_username',
+        'github_token', 'github_refresh_token',
     ];
 
     protected $hidden = [

@@ -120,6 +120,17 @@ document.addEventListener('DOMContentLoaded', function () {
     window.processOrder = processOrder;
 
     document.getElementById('orderForm').addEventListener('submit', processOrder);
+
+    setTimeout(function() {
+        let flashMessages = document.querySelectorAll('.flash-message');
+        flashMessages.forEach(function(flashMessage) {
+            flashMessage.style.transition = 'opacity 1s';
+            flashMessage.style.opacity = '0';
+            setTimeout(function() {
+                flashMessage.style.display = 'none';
+            }, 1000);
+        });
+    }, 2000);
 });
 
 document.addEventListener('DOMContentLoaded', function () {

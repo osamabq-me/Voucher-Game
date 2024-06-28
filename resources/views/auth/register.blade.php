@@ -2,7 +2,7 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- Username -->
         <div>
             <x-input-label for="username" :value="('Username')" />
             <x-text-input id="username" class="block w-full mt-1" type="text" name="username" :value="old('username')" required
@@ -49,4 +49,11 @@
             </x-primary-button>
         </div>
     </form>
+
+    <!-- GitHub Register Button -->
+    <div class="flex items-center justify-center mt-4">
+        <a href="{{ url('auth/github') }}" class="px-4 py-2 font-bold text-white bg-gray-900 rounded-lg hover:bg-gray-700">
+            <i class="fa-brands fa-github me-2"></i> {{ __('Register with GitHub') }}
+        </a>
+    </div>
 </x-guest-layout>

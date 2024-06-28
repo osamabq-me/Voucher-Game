@@ -21,6 +21,29 @@
 
             <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
                 <div class="max-w-xl">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('GitHub Connection') }}</h3>
+                    <div class="mt-4">
+                        @if (Auth::user()->github_id)
+                            <form method="POST" action="{{ route('profile.disconnect-github') }}">
+                                @csrf
+                                @method('DELETE')
+                                <x-primary-button class="flex items-center bg-red-500 hover:bg-red-700">
+                                    <i class="fa-brands fa-github me-2"></i> {{ __('Disconnect from GitHub') }}
+                                </x-primary-button>
+                            </form>
+                        @else
+                            <a href="{{ route('auth.github') }}">
+                                <x-primary-button class="flex items-center bg-blue-500 hover:bg-blue-700">
+                                    <i class="fa-brands fa-github me-2"></i> {{ __('Connect to GitHub') }}
+                                </x-primary-button>
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
+                <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>

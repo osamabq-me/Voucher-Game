@@ -57,4 +57,21 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    /**
+     * Disconnect the user's GitHub account.
+     */
+    public function disconnectGitHub(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $user->update([
+            'github_id' => null,
+            'github_name' => null,
+            'github_username' => null,
+            'github_token' => null,
+            'github_refresh_token' => null,
+        ]);
+
+        return Redirect::route('profile.edit')->with('status', 'github-disconnected');
+    }
 }

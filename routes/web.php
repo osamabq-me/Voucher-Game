@@ -1,16 +1,23 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Auth\SetPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 Route::get('/', [ProductController::class, 'index'])->name('welcome');
 Route::post('/order', [OrderController::class, 'store'])->middleware('auth');
+
+Route::get('auth/github', [SocialiteController::class, 'redirectToProvider'])->name('auth.github');
+Route::get('auth/github/callback', [SocialiteController::class, 'handleProviderCallback']);
+Route::get('password/set', [SetPasswordController::class, 'showSetPasswordForm'])->name('password.set');
+Route::post('password/set', [SetPasswordController::class, 'setPassword']);
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
@@ -36,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile/disconnect-github', [ProfileController::class, 'disconnectGitHub'])->name('profile.disconnect-github');
 });
 
 Route::middleware(['auth'])->group(function () {
