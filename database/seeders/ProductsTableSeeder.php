@@ -36,5 +36,8 @@ class ProductsTableSeeder extends Seeder
         foreach ($products as $product) {
             Product::create($product);
         }
+
+        // Create additional random products
+        Product::factory()->count(100)->create();
     }
 }
