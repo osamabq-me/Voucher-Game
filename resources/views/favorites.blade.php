@@ -32,7 +32,3 @@
     <!-- Detail Modal Component -->
     <x-product-detail-modal></x-product-detail-modal>
 </x-app-layout>
-
-@section('scripts')
-    <script src="{{ mix('js/main.js') }}"></script>
-@endsection

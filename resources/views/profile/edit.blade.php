@@ -50,3 +50,17 @@
         </div>
     </div>
 </x-app-layout>
+
+
+<script>
+    setTimeout(function() {
+        let flashMessages = document.querySelectorAll('.flash-message');
+        flashMessages.forEach(function(flashMessage) {
+            flashMessage.style.transition = 'opacity 1s';
+            flashMessage.style.opacity = '0';
+            setTimeout(function() {
+                flashMessage.style.display = 'none';
+            }, 1000);
+        });
+    }, 2000);
+</script>
