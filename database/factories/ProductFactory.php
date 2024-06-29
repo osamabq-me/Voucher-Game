@@ -24,7 +24,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->unique()->word,
             'description' => $this->faker->sentence,
-            'price' => $this->faker->randomFloat(2, 5, 100),
+            'price' => $this->faker->randomFloat(2, 100000, 1999999),
             'image_url' => $this->faker->randomElement($imageUrls),
             'created_at' => now(),
             'updated_at' => now(),
