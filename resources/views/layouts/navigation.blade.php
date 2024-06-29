@@ -143,6 +143,20 @@
                     {{ __('Favorites') }}
                 </x-responsive-nav-link>
             @endauth
+            @guest
+                <div class="px-4 py-4">
+                    <div class="text-base font-medium text-gray-800 dark:text-gray-200">{{ __('Guest') }}</div>
+                </div>
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('login')">
+                        {{ __('Login') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('register')">
+                        {{ __('Register') }}
+                    </x-responsive-nav-link>
+                </div>
+            @endguest
         </div>
 
         <!-- Responsive Settings Options -->
