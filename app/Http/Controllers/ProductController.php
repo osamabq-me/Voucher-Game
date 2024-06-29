@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(9);
         $favorites = [];
         if (Auth::check()) {
             $favorites = Favorite::where('id_user', Auth::id())->pluck('id_product')->toArray();

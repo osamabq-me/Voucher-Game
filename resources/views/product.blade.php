@@ -44,6 +44,11 @@
             </div>
         </div>
 
+        <!-- Pagination Links -->
+        <div class="mt-10 mb-10">
+            {{ $products->links() }}
+        </div>
+
         <!-- Floating Add Button -->
         @auth
             @if (auth()->user()->is_admin)
